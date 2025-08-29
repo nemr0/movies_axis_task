@@ -17,3 +17,8 @@ icons:
 build-runner:
 	flutter pub run build_runner build --delete-conflicting-outputs
 
+.PHONY: flutter-commands
+
+clean-then-get:
+	flutter clean && flutter pub get
+
