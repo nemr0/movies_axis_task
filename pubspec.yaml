@@ -26,6 +26,8 @@ dependencies:
   cached_network_image: ^3.4.1
   flutter_gen: ^5.11.0
   flutter_native_splash: ^2.4.6
+  alice: ^1.0.0
+  alice_dio: ^1.0.7
 
 dev_dependencies:
   flutter_test:

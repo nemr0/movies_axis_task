@@ -14,12 +14,15 @@ import 'package:flutter/widgets.dart';
 class $AssetsCoreGen {
   const $AssetsCoreGen();
 
+  /// File path: assets/core/logo.webp
+  AssetGenImage get logo => const AssetGenImage('assets/core/logo.webp');
+
   /// File path: assets/core/not_found.webp
   AssetGenImage get notFound =>
       const AssetGenImage('assets/core/not_found.webp');
 
   /// List of all assets
-  List<AssetGenImage> get values => [notFound];
+  List<AssetGenImage> get values => [logo, notFound];
 }
 
 class Assets {

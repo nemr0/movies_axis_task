@@ -1,4 +1,5 @@
 import 'package:dartz/dartz.dart';
+import 'package:movies/core/service_locator/service_locator.dart';
 
 import '../exceptions/failure.dart';
 import '../models/api_response.dart';
@@ -7,6 +8,7 @@ import '../models/api_response.dart';
 ///
 /// Implementations should provide logic for HTTP GET requests and request cancellation.
 abstract class NetworkService{
+  static NetworkService get instance => ServiceLocator.get<NetworkService>();
   /// Sends an HTTP GET request to the specified [path].
   ///
   /// [queryParameters]: Optional query parameters for the request.
@@ -31,6 +33,8 @@ abstract class NetworkService{
     Map<String, dynamic>? queryParameters,
     // String? cancelKey,
   });
+
+  void showInspector();
   // /// Cancels an ongoing request identified by [key].
   // void cancelRequest(String key);
 }

@@ -21,6 +21,17 @@ class Person extends Equatable{
     required this.popularity,
     required this.knownForDepartment,required this.allKnownFor,
   });
+  const factory Person.empty() = Person._empty;
+
+  const Person._empty()
+      : id = 0,
+        name = '',
+        profilePath = '',
+        adult = false,
+        gender = Gender.other, // adjust if your enum uses a different "unknown" value
+        popularity = 0.0,
+        knownForDepartment = '',
+        allKnownFor = const <KnownFor>[];
 
   @override
   List<Object?> get props => [
