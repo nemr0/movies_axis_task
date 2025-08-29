@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'app_constants.dart';
 /// GENERATED WITH: Flutter Theme Generator
 ///
@@ -193,6 +194,7 @@ class AppTheme {
     brightness: colorScheme.brightness,
     colorScheme: colorScheme,
     textTheme: _textTheme,
+    // fontFamily: GoogleFonts.robo,
     appBarTheme: colorScheme.brightness == Brightness.light ? _lightAppBarTheme : _darkAppBarTheme,
     elevatedButtonTheme: _elevatedButtonTheme,
     textButtonTheme: _textButtonTheme,
@@ -218,7 +220,7 @@ class AppTheme {
 
 
   /// Text theme using AppConstants for consistent font sizes
-  static final TextTheme _textTheme = TextTheme(
+  static final TextTheme _textTheme = GoogleFonts.robotoMonoTextTheme().copyWith(
     displayLarge: TextStyle(
       fontSize: AppConstants.fontSizeDisplayLarge,
       fontWeight: FontWeight.w400,

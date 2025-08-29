@@ -3,11 +3,11 @@ import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 
-import '../exceptions/failure.dart';
-import '../exceptions/server_failure.dart';
-import '../models/api_response.dart';
-import 'apis.dart';
-import 'network_service.dart';
+import '../../exceptions/failure.dart';
+import '../../exceptions/server_failure.dart';
+import '../../models/api_response.dart';
+import '../apis.dart';
+import '../network_service.dart';
 
 @LazySingleton(as: NetworkService)
 class DioNetworkService implements NetworkService {
