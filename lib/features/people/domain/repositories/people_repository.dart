@@ -8,5 +8,5 @@ import '../entities/person_photo.dart';
 abstract class PeopleRepository {
   Future<Either<Failure,PaginatedPeople>> listPopularPeople(int page,String language);
   Future<Either<Failure,PersonPhotos>> getPersonPhotos(int personId);
-  Future<Either<Failure,void>> savePersonPhoto(SavePersonPhotoParams params);
+  Future<Either<Failure,void>> savePersonPhoto(SavePhotoParams params);
 }

@@ -10,7 +10,7 @@ import 'package:movies/features/people/presentation/widget/person_widgets/person
 import 'package:mesh_gradient/mesh_gradient.dart';
 
 import '../widget/chip_widget.dart';
-import '../widget/known_for_widgets/sliver_known_for_list.dart';
+import '../widget/known_for_widgets/sliver_known_for_photo_list.dart';
 import '../widget/person_widgets/sliver_person_photos_list.dart';
 import '../widget/sliver_sub_header.dart';
 

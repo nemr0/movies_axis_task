@@ -33,7 +33,7 @@ PeopleRepositoryImpl(this._localSource,  this._remoteSource);
   }
 
   @override
-  Future<Either<Failure, void>> savePersonPhoto(SavePersonPhotoParams params) async {
+  Future<Either<Failure, void>> savePersonPhoto(SavePhotoParams params) async {
     final mimeType = params.photoPath.split('.').last;
       final fromLocal = await _localSource.getSinglePersonPhoto(params.photoPath);
       if(fromLocal.isLeft() ){

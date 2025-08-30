@@ -42,7 +42,7 @@ final _getRouter = GoRouter(
         GoRoute(
           path: Routes.personPhoto,
           builder: (context, state) {
-            final savePersonPhotoParams = state.extra as SavePersonPhotoParams?;
+            final savePersonPhotoParams = state.extra as SavePhotoParams?;
             if (savePersonPhotoParams == null) {
               return ErrorScreen(
                 onActionPressed: () => context.pop(),
@@ -50,8 +50,8 @@ final _getRouter = GoRouter(
               );
             }
             return BlocProvider(
-              create: (context) => SavePersonPhotoCubit.instance,
-              child: PersonPhotoScreen(
+              create: (context) => SavePhotoCubit.instance,
+              child: PhotoScreen(
                 savePhotoParams: savePersonPhotoParams,
               ),
             );

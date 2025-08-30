@@ -32,7 +32,7 @@ import 'package:movies/features/people/presentation/manager/get_person_photos_cu
     as _i976;
 import 'package:movies/features/people/presentation/manager/get_popular_people_cubit/get_popular_people_cubit.dart'
     as _i259;
-import 'package:movies/features/people/presentation/manager/save_person_photo_cubit/save_person_photo_cubit.dart'
+import 'package:movies/features/people/presentation/manager/save_person_photo_cubit/save_photo_cubit.dart'
     as _i349;
 
 extension GetItInjectableX on _i174.GetIt {
@@ -70,8 +70,8 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i211.SavePersonPhotoUseCase>(
       () => _i211.SavePersonPhotoUseCase(gh<_i812.PeopleRepository>()),
     );
-    gh.factory<_i349.SavePersonPhotoCubit>(
-      () => _i349.SavePersonPhotoCubit(gh<_i211.SavePersonPhotoUseCase>()),
+    gh.factory<_i349.SavePhotoCubit>(
+      () => _i349.SavePhotoCubit(gh<_i211.SavePersonPhotoUseCase>()),
     );
     return this;
   }

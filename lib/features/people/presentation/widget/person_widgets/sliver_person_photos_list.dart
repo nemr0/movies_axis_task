@@ -38,45 +38,43 @@ class SliverPersonPhotosList extends StatelessWidget {
                 failure: failure,
               );
             }
-            return Padding(
+            return ListView.separated(
               padding: const EdgeInsets.all(8.0),
-              child: ListView.separated(
-                itemCount: personPhotos?.$2.length ?? 10,
-                scrollDirection: Axis.horizontal,
-                itemBuilder: (_, index) {
+              itemCount: personPhotos?.$2.length ?? 10,
+              scrollDirection: Axis.horizontal,
+              itemBuilder: (_, index) {
 
-                  final imageUrl = personPhotos?.$2[index];
-                  return ClipRRect(
-                    borderRadius: BorderRadius.circular(12),
-                    child: AspectRatio(
-                      aspectRatio: imageUrl?.aspectRatio ?? 2 / 3,
-                      child: ImageFromNetwork(
-                        imageUrl?.filePath.fullImagePath,
-                        loading: imageUrl == null,
-                        imageBuilder: (_,provider){
-                          return Hero(
-                            tag: Routes.personPhotoPath(person.id, index),
-                            child: CupertinoButton(
-                                padding: EdgeInsets.zero,
-                                onPressed: () {
-                                  context.push(Routes.personPhotoPath(person.id, index), extra: SavePersonPhotoParams(
-                                    id: person.id,
-                                    name: person.name,
-                                    photoOf: PhotoOf.profile,
-                                    photoId: index,
-                                    photoPath: imageUrl?.filePath.fullImagePath ?? '',
-                                  ));
-                                },
-                                child: Image(image: provider, fit: BoxFit.cover)),
-                          );
-                        },
-                      ),
+                final imageUrl = personPhotos?.$2[index];
+                return ClipRRect(
+                  borderRadius: BorderRadius.circular(12),
+                  child: AspectRatio(
+                    aspectRatio: imageUrl?.aspectRatio ?? 2 / 3,
+                    child: ImageFromNetwork(
+                      imageUrl?.filePath.fullImagePath,
+                      loading: imageUrl == null,
+                      imageBuilder: (_,provider){
+                        return Hero(
+                          tag: Routes.personPhotoPath(person.id, index),
+                          child: CupertinoButton(
+                              padding: EdgeInsets.zero,
+                              onPressed: () {
+                                context.push(Routes.personPhotoPath(person.id, index), extra: SavePhotoParams(
+                                  id: person.id,
+                                  name: person.name,
+                                  photoOf: PhotoOf.profile,
+                                  photoId: index,
+                                  photoPath: imageUrl?.filePath.fullImagePath ?? '',
+                                ));
+                              },
+                              child: Image(image: provider, fit: BoxFit.cover)),
+                        );
+                      },
                     ),
-                  );
-                },
-                separatorBuilder: (BuildContext context, int index) =>
-                    SizedBox(width: 10),
-              ),
+                  ),
+                );
+              },
+              separatorBuilder: (BuildContext context, int index) =>
+                  SizedBox(width: 10),
             );
           },
         ),
