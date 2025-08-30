@@ -13,7 +13,7 @@ class KnownFor extends Equatable{
   final String originalLanguage;
   final List<int> genreIds;
   final double popularity;
-  final DateTime? releaseDate;
+  final String? releaseDate;
   final bool video;
   final double voteAverage;
   final int voteCount;

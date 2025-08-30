@@ -13,7 +13,9 @@ class ImageFromNetwork extends StatelessWidget {
       this.loading = false,
       this.errorText = 'No Cover Available',
       this.boxFit = BoxFit.contain,
-      this.imageBuilder, this.errorBuilder});
+      this.imageBuilder,
+      this.errorBuilder,
+      });
 
   final String? imageUrl;
   final bool loading;
@@ -27,31 +29,31 @@ class ImageFromNetwork extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Skeletonizer(
-      enabled: loading,
-      child: Builder(
-        builder: (context) {
-          if (loading) {
-            return const _CoverSkeleton();
-          }
-          return CachedNetworkImage(
-            imageUrl: imageUrl ?? '',
-            fit: boxFit,
-            imageBuilder: imageBuilder,
-            placeholder: (_, __) => const _CoverSkeleton(),
-            errorWidget: (_, e, s) {
-              return Stack(
-                fit: StackFit.expand,
-                children: [
-                  _CoverError(errorText),
-                  if (errorBuilder != null) errorBuilder!(),
+    return Builder(
+      builder: (context) {
+        if (loading) {
+          return  const _CoverSkeleton();
+        }
+        return CachedNetworkImage(
+          imageUrl: imageUrl ?? '',
+          fit: boxFit,
+          imageBuilder: imageBuilder,
+          placeholder: (_, __) =>  const _CoverSkeleton(),
+          errorWidget: (_, e, s) {
+            return Stack(
+              fit: StackFit.expand,
+              children: [
+                Skeletonizer(
+                    enabled: loading,
+                    effect: context.shimmerEffect,
+                    child: _CoverError(errorText)),
+                if (errorBuilder != null) errorBuilder!(),
 
-                ],
-              );
-            },
-          );
-        },
-      ),
+              ],
+            );
+          },
+        );
+      },
     );
   }
 }
@@ -59,9 +61,9 @@ class ImageFromNetwork extends StatelessWidget {
 /// A skeleton widget that shows a shimmer effect while the image is loading.
 class _CoverSkeleton extends StatelessWidget {
   const _CoverSkeleton();
-
   @override
   Widget build(BuildContext context) {
+
     return Skeletonizer(
       enabled: true,
       effect: context.shimmerEffect,

@@ -88,11 +88,7 @@ class GetPopularPeopleCubit extends Cubit<GetPopularPeopleState> {
               newPaginatedPeople.addOldPeople(currentPaginatedPeople.people),
             ),
           );
-          final emittedPaginatedPeople =
-              (state as _GetPopularPeopleSuccess).paginatedPeople;
-          print(
-            'Fetched popular people, page: ${emittedPaginatedPeople.page}, total people: ${emittedPaginatedPeople.people.length}',
-          );
+
         }
       },
     );
