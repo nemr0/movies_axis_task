@@ -13,12 +13,13 @@ class ImageFromNetwork extends StatelessWidget {
       this.loading = false,
       this.errorText = 'No Cover Available',
       this.boxFit = BoxFit.contain,
-      this.imageBuilder});
+      this.imageBuilder, this.errorBuilder});
 
   final String? imageUrl;
   final bool loading;
   final String errorText;
   final BoxFit boxFit;
+  final Widget Function()? errorBuilder;
   final Widget Function(
     BuildContext context,
     ImageProvider imageProvider,
@@ -39,7 +40,14 @@ class ImageFromNetwork extends StatelessWidget {
             imageBuilder: imageBuilder,
             placeholder: (_, __) => const _CoverSkeleton(),
             errorWidget: (_, e, s) {
-              return _CoverError(errorText);
+              return Stack(
+                fit: StackFit.expand,
+                children: [
+                  _CoverError(errorText),
+                  if (errorBuilder != null) errorBuilder!(),
+
+                ],
+              );
             },
           );
         },
@@ -70,15 +78,18 @@ class _CoverError extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(14.0),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Assets.core.notFound.image(),
-          SizedBox(height: 2,),
-          Text(error, style: context.textTheme.bodyMedium),
-        ],
+    return Container(
+      color: context.colorScheme.onSecondaryFixedVariant,
+      child: Padding(
+        padding: const EdgeInsets.all(14.0),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Assets.core.notFound.image(color: context.colorScheme.primary, width: 100, height: 100),
+            SizedBox(height: 8,),
+            Text(error, style: context.textTheme.bodyMedium),
+          ],
+        ),
       ),
     );
   }

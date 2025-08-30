@@ -18,9 +18,9 @@ part 'get_popular_people_state.dart';
 class GetPopularPeopleCubit extends Cubit<GetPopularPeopleState> {
   /// Creates an instance of [GetPopularPeopleCubit] with the given use case.
   ///
-  /// The initial state is [GetPopularPeopleState.loading].
+  /// The initial state is [GetPopularPeopleState.initial].
   GetPopularPeopleCubit(this._getPopularPeopleUseCase)
-    : super(GetPopularPeopleState.loading());
+    : super(GetPopularPeopleState.initial());
   final GetPopularPeopleUseCase _getPopularPeopleUseCase;
 
   /// A singleton-like accessor via the service locator.
@@ -39,7 +39,7 @@ class GetPopularPeopleCubit extends Cubit<GetPopularPeopleState> {
   ///   - Emits [GetPopularPeopleState.paginationFailed] for pagination errors.
   Future<void> call() async {
     /// if loading or paginating return
-    if (state is _GetPopularPeoplePaginating) {
+    if (state is _GetPopularPeoplePaginating || state is _GetPopularPeopleLoading) {
       return;
     }
 

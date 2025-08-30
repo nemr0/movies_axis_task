@@ -55,10 +55,11 @@ extension GetPopularPeopleStatePatterns on GetPopularPeopleState {
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeMap<TResult extends Object?>({TResult Function( _GetPopularPeopleLoading value)?  loading,TResult Function( _GetPopularPeoplePaginating value)?  paginating,TResult Function( _GetPopularPeopleSuccess value)?  success,TResult Function( _GetPopularPeopleFailed value)?  failed,TResult Function( _GetPopularPeoplePaginationFailed value)?  paginationFailed,required TResult orElse(),}){
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>({TResult Function( _GetPopularPeopleInitial value)?  initial,TResult Function( _GetPopularPeopleLoading value)?  loading,TResult Function( _GetPopularPeoplePaginating value)?  paginating,TResult Function( _GetPopularPeopleSuccess value)?  success,TResult Function( _GetPopularPeopleFailed value)?  failed,TResult Function( _GetPopularPeoplePaginationFailed value)?  paginationFailed,required TResult orElse(),}){
 final _that = this;
 switch (_that) {
-case _GetPopularPeopleLoading() when loading != null:
+case _GetPopularPeopleInitial() when initial != null:
+return initial(_that);case _GetPopularPeopleLoading() when loading != null:
 return loading(_that);case _GetPopularPeoplePaginating() when paginating != null:
 return paginating(_that);case _GetPopularPeopleSuccess() when success != null:
 return success(_that);case _GetPopularPeopleFailed() when failed != null:
@@ -81,10 +82,11 @@ return paginationFailed(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult map<TResult extends Object?>({required TResult Function( _GetPopularPeopleLoading value)  loading,required TResult Function( _GetPopularPeoplePaginating value)  paginating,required TResult Function( _GetPopularPeopleSuccess value)  success,required TResult Function( _GetPopularPeopleFailed value)  failed,required TResult Function( _GetPopularPeoplePaginationFailed value)  paginationFailed,}){
+@optionalTypeArgs TResult map<TResult extends Object?>({required TResult Function( _GetPopularPeopleInitial value)  initial,required TResult Function( _GetPopularPeopleLoading value)  loading,required TResult Function( _GetPopularPeoplePaginating value)  paginating,required TResult Function( _GetPopularPeopleSuccess value)  success,required TResult Function( _GetPopularPeopleFailed value)  failed,required TResult Function( _GetPopularPeoplePaginationFailed value)  paginationFailed,}){
 final _that = this;
 switch (_that) {
-case _GetPopularPeopleLoading():
+case _GetPopularPeopleInitial():
+return initial(_that);case _GetPopularPeopleLoading():
 return loading(_that);case _GetPopularPeoplePaginating():
 return paginating(_that);case _GetPopularPeopleSuccess():
 return success(_that);case _GetPopularPeopleFailed():
@@ -106,10 +108,11 @@ return paginationFailed(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>({TResult? Function( _GetPopularPeopleLoading value)?  loading,TResult? Function( _GetPopularPeoplePaginating value)?  paginating,TResult? Function( _GetPopularPeopleSuccess value)?  success,TResult? Function( _GetPopularPeopleFailed value)?  failed,TResult? Function( _GetPopularPeoplePaginationFailed value)?  paginationFailed,}){
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>({TResult? Function( _GetPopularPeopleInitial value)?  initial,TResult? Function( _GetPopularPeopleLoading value)?  loading,TResult? Function( _GetPopularPeoplePaginating value)?  paginating,TResult? Function( _GetPopularPeopleSuccess value)?  success,TResult? Function( _GetPopularPeopleFailed value)?  failed,TResult? Function( _GetPopularPeoplePaginationFailed value)?  paginationFailed,}){
 final _that = this;
 switch (_that) {
-case _GetPopularPeopleLoading() when loading != null:
+case _GetPopularPeopleInitial() when initial != null:
+return initial(_that);case _GetPopularPeopleLoading() when loading != null:
 return loading(_that);case _GetPopularPeoplePaginating() when paginating != null:
 return paginating(_that);case _GetPopularPeopleSuccess() when success != null:
 return success(_that);case _GetPopularPeopleFailed() when failed != null:
@@ -131,9 +134,10 @@ return paginationFailed(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function()?  loading,TResult Function( PaginatedPeople oldPaginatedPeople)?  paginating,TResult Function( PaginatedPeople paginatedPeople)?  success,TResult Function( Failure failure)?  failed,TResult Function( PaginatedPeople paginatedPeople,  Failure failure)?  paginationFailed,required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function()?  initial,TResult Function()?  loading,TResult Function( PaginatedPeople oldPaginatedPeople)?  paginating,TResult Function( PaginatedPeople paginatedPeople)?  success,TResult Function( Failure failure)?  failed,TResult Function( PaginatedPeople paginatedPeople,  Failure failure)?  paginationFailed,required TResult orElse(),}) {final _that = this;
 switch (_that) {
-case _GetPopularPeopleLoading() when loading != null:
+case _GetPopularPeopleInitial() when initial != null:
+return initial();case _GetPopularPeopleLoading() when loading != null:
 return loading();case _GetPopularPeoplePaginating() when paginating != null:
 return paginating(_that.oldPaginatedPeople);case _GetPopularPeopleSuccess() when success != null:
 return success(_that.paginatedPeople);case _GetPopularPeopleFailed() when failed != null:
@@ -156,9 +160,10 @@ return paginationFailed(_that.paginatedPeople,_that.failure);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function()  loading,required TResult Function( PaginatedPeople oldPaginatedPeople)  paginating,required TResult Function( PaginatedPeople paginatedPeople)  success,required TResult Function( Failure failure)  failed,required TResult Function( PaginatedPeople paginatedPeople,  Failure failure)  paginationFailed,}) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function()  initial,required TResult Function()  loading,required TResult Function( PaginatedPeople oldPaginatedPeople)  paginating,required TResult Function( PaginatedPeople paginatedPeople)  success,required TResult Function( Failure failure)  failed,required TResult Function( PaginatedPeople paginatedPeople,  Failure failure)  paginationFailed,}) {final _that = this;
 switch (_that) {
-case _GetPopularPeopleLoading():
+case _GetPopularPeopleInitial():
+return initial();case _GetPopularPeopleLoading():
 return loading();case _GetPopularPeoplePaginating():
 return paginating(_that.oldPaginatedPeople);case _GetPopularPeopleSuccess():
 return success(_that.paginatedPeople);case _GetPopularPeopleFailed():
@@ -180,9 +185,10 @@ return paginationFailed(_that.paginatedPeople,_that.failure);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function()?  loading,TResult? Function( PaginatedPeople oldPaginatedPeople)?  paginating,TResult? Function( PaginatedPeople paginatedPeople)?  success,TResult? Function( Failure failure)?  failed,TResult? Function( PaginatedPeople paginatedPeople,  Failure failure)?  paginationFailed,}) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function()?  initial,TResult? Function()?  loading,TResult? Function( PaginatedPeople oldPaginatedPeople)?  paginating,TResult? Function( PaginatedPeople paginatedPeople)?  success,TResult? Function( Failure failure)?  failed,TResult? Function( PaginatedPeople paginatedPeople,  Failure failure)?  paginationFailed,}) {final _that = this;
 switch (_that) {
-case _GetPopularPeopleLoading() when loading != null:
+case _GetPopularPeopleInitial() when initial != null:
+return initial();case _GetPopularPeopleLoading() when loading != null:
 return loading();case _GetPopularPeoplePaginating() when paginating != null:
 return paginating(_that.oldPaginatedPeople);case _GetPopularPeopleSuccess() when success != null:
 return success(_that.paginatedPeople);case _GetPopularPeopleFailed() when failed != null:
@@ -194,6 +200,38 @@ return paginationFailed(_that.paginatedPeople,_that.failure);case _:
 }
 
 }
+
+/// @nodoc
+
+
+class _GetPopularPeopleInitial implements GetPopularPeopleState {
+  const _GetPopularPeopleInitial();
+  
+
+
+
+
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _GetPopularPeopleInitial);
+}
+
+
+@override
+int get hashCode => runtimeType.hashCode;
+
+@override
+String toString() {
+  return 'GetPopularPeopleState.initial()';
+}
+
+
+}
+
+
+
 
 /// @nodoc
 

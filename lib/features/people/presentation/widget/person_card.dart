@@ -16,8 +16,45 @@ class PersonCard extends StatelessWidget {
     final textTheme = context.textTheme;
     final colorScheme = context.colorScheme;
     final isKnownForDepartmentEmpty = person?.knownForDepartment.isEmpty ?? true;
+    final body = Align(
+      alignment: Alignment.bottomCenter,
+      child: Container(
+        width: double.infinity,
+        height: isKnownForDepartmentEmpty? 40 : 55,
+        padding: const EdgeInsets.all(8),
+        decoration: BoxDecoration(
+          color: colorScheme.onPrimaryContainer.withAlpha(12),
+          borderRadius:  BorderRadius.circular(8),
+        ),
+
+      ).blurred(
+        blurColor: colorScheme.primaryContainer,
+        colorOpacity: 0.4,
+        blur: 10,
+        overlay:  person == null? null:Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Text(
+              person!.name,
+              style: textTheme.titleMedium,
+              maxLines: 2,
+              overflow: TextOverflow.ellipsis,
+              textAlign: TextAlign.center,
+            ),
+            if (!isKnownForDepartmentEmpty)
+              Text(
+                person!.knownForDepartment,
+                style: textTheme.bodySmall,
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+                textAlign: TextAlign.center,
+              ),
+          ],
+        ),
+      ),
+    );
     return Hero(
-      tag: person ?? Person.empty(),
+      tag: person ?? UniqueKey(),
       child: CupertinoButton(
         onPressed: onPressed == null || person == null ? null : ()=> onPressed!(person!),
         padding: EdgeInsets.zero,
@@ -38,6 +75,7 @@ class PersonCard extends StatelessWidget {
             child: ImageFromNetwork(
               person?.profilePath.fullImagePath ?? '',
               loading: person == null,
+              errorBuilder: ()=>body,
               imageBuilder: (context, imageProvider) {
                 return Container(
                   decoration: BoxDecoration(
@@ -45,43 +83,7 @@ class PersonCard extends StatelessWidget {
           
                     image: DecorationImage(image: imageProvider, fit: BoxFit.cover),
                   ),
-                  child: Align(
-                    alignment: Alignment.bottomCenter,
-                    child: Container(
-                      width: double.infinity,
-                      height: isKnownForDepartmentEmpty? 40 : 55,
-                      padding: const EdgeInsets.all(8),
-                      decoration: BoxDecoration(
-                        color: colorScheme.onPrimaryContainer.withAlpha(12),
-                        borderRadius:  BorderRadius.circular(8),
-                      ),
-          
-                    ).blurred(
-                      blurColor: colorScheme.primaryContainer,
-                      colorOpacity: 0.4,
-                      blur: 10,
-                      overlay:  person == null? null:Column(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Text(
-                          person!.name,
-                          style: textTheme.titleMedium,
-                          maxLines: 2,
-                          overflow: TextOverflow.ellipsis,
-                          textAlign: TextAlign.center,
-                        ),
-                        if (!isKnownForDepartmentEmpty)
-                          Text(
-                            person!.knownForDepartment,
-                            style: textTheme.bodySmall,
-                            maxLines: 1,
-                            overflow: TextOverflow.ellipsis,
-                            textAlign: TextAlign.center,
-                          ),
-                      ],
-                    ),
-                    ),
-                  ),
+                  child: body,
                 );
               },
             ),
