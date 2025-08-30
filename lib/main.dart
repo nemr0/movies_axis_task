@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-
+import 'package:movies/core/router/router_config.dart';
 import 'core/service_locator/service_locator.dart';
-import 'core/themes/app_theme.dart';
+import 'core/themes/theme.dart';
+import 'core/themes/util.dart';
 
 void main() {
   ServiceLocator.setup();
@@ -13,36 +14,16 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    TextTheme textTheme = createTextTheme(context, "Roboto", "Cairo");
+
+    MaterialTheme theme = MaterialTheme(textTheme);
+    return MaterialApp.router(
       title: 'Movies',
-      theme: AppTheme.lightTheme,      // Light mode theme
-      darkTheme: AppTheme.darkTheme,   // Dark mode theme
-      home: const MyHomePage(),
+      theme: theme.light(),      // Light mode theme
+      darkTheme: theme.dark(), // Dark mode theme
+      routerConfig: getRouter,
     );
   }
 }
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key});
 
-  @override
-  State<MyHomePage> createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-
-          ],
-        ),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
-    );
-  }
-}
