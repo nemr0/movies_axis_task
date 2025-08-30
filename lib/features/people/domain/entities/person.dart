@@ -25,12 +25,12 @@ class Person extends Equatable{
 
   const Person._empty()
       : id = 0,
-        name = 'Peter Stormare',
-        profilePath = '/1rtpuUqBV29jDc1huUhtjGDbEwn.jpg',
+        name = '',
+        profilePath = '',
         adult = false,
         gender = Gender.other, // adjust if your enum uses a different "unknown" value
         popularity = 0.0,
-        knownForDepartment = 'Acting',
+        knownForDepartment = '',
         allKnownFor = const <KnownFor>[];
 
   @override

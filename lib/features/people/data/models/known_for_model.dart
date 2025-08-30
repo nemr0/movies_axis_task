@@ -15,7 +15,9 @@ extension KnownForModel on KnownFor {
       adult: json['adult'] ?? true,
       originalTitle: json['original_title'] ?? '',
       originalLanguage: json['original_language'] ?? '',
-      genreIds: List.from(json['genre_ids'] ?? []),
+      genreIds: (json['genre_ids'] as List<dynamic>? ?? const [])
+          .map((e) => e as int)
+          .toList(),
       popularity: (json['popularity'] as num).toDouble(),
       video: json['video'] ?? false,
     );

@@ -42,7 +42,7 @@ class ErrorScreen extends StatelessWidget {
           Text(
             isNetworkError
                 ? 'Could not connect to the network'
-                : 'Could not connect fetch data from the server',
+                : 'Could not fetch data from the server',
             style: textTheme.bodyLarge?.copyWith(
               color: colorScheme.onSurface,
             ),
