@@ -14,6 +14,16 @@ import 'package:injectable/injectable.dart' as _i526;
 import 'package:movies/core/network/dio_network_service/dio_network_service.dart'
     as _i311;
 import 'package:movies/core/network/network_service.dart' as _i449;
+import 'package:movies/features/people/data/datasource/people_remote_source.dart'
+    as _i45;
+import 'package:movies/features/people/data/repositories/people_repository_impl.dart'
+    as _i139;
+import 'package:movies/features/people/domain/repositories/people_repository.dart'
+    as _i812;
+import 'package:movies/features/people/domain/usecase/get_popular_people_use_case.dart'
+    as _i514;
+import 'package:movies/features/people/presentation/manager/get_popular_people_cubit/get_popular_people_cubit.dart'
+    as _i259;
 
 extension GetItInjectableX on _i174.GetIt {
   // initializes the registration of main-scope dependencies inside of GetIt
@@ -23,6 +33,20 @@ extension GetItInjectableX on _i174.GetIt {
   }) {
     final gh = _i526.GetItHelper(this, environment, environmentFilter);
     gh.lazySingleton<_i449.NetworkService>(() => _i311.DioNetworkService());
+    gh.lazySingleton<_i45.PeopleRemoteSource>(
+      () => _i45.PeopleRemoteSourceImpl(gh<_i449.NetworkService>()),
+    );
+    gh.lazySingleton<_i812.PeopleRepository>(
+      () => _i139.PeopleRepositoryImpl(
+        remoteSource: gh<_i45.PeopleRemoteSource>(),
+      ),
+    );
+    gh.lazySingleton<_i514.GetPopularPeopleUseCase>(
+      () => _i514.GetPopularPeopleUseCase(gh<_i812.PeopleRepository>()),
+    );
+    gh.factory<_i259.GetPopularPeopleCubit>(
+      () => _i259.GetPopularPeopleCubit(gh<_i514.GetPopularPeopleUseCase>()),
+    );
     return this;
   }
 }

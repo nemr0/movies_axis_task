@@ -3,6 +3,7 @@ import 'package:alice/model/alice_configuration.dart';
 import 'package:alice_dio/alice_dio_adapter.dart';
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
+import 'package:flutter/foundation.dart';
 import 'package:injectable/injectable.dart';
 import 'package:movies/core/router/navigator_key.dart';
 
@@ -89,13 +90,21 @@ class DioNetworkService implements NetworkService {
     );
     final aliceDioAdapter = AliceDioAdapter();
     _alice.addAdapter(aliceDioAdapter);
-    _dio =
+     const apiToken = String.fromEnvironment('API_TOKEN');
+     if (kDebugMode) {
+       print('api_token: $apiToken');
+     }
+
+     _dio =
         Dio(
             BaseOptions(
-              baseUrl: APIs.baseUrl, // Replace with your API base URL
+              baseUrl: APIs.baseUrl,
               connectTimeout: const Duration(seconds: 30),
               receiveTimeout: const Duration(seconds: 30),
               sendTimeout: const Duration(seconds: 30),
+              headers: {
+                'Authorization' : 'Bearer $apiToken',
+              }
             ),
           )
           ..interceptors.addAll([

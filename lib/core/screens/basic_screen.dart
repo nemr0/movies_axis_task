@@ -14,12 +14,9 @@ class BasicScreen extends StatelessWidget {
     final showInspector = kDebugMode;
     return Scaffold(
       appBar: appBar,
-        floatingActionButtonLocation: FloatingActionButtonLocation.miniCenterDocked,
       floatingActionButton: showInspector?FloatingActionButton.extended(
         extendedPadding: EdgeInsets.symmetric(horizontal: 8),
-        onPressed: () {
-          NetworkService.instance.showInspector();
-        },
+        onPressed: NetworkService.instance.showInspector,
         label: Row(
           children: [
             const Icon(Icons.info),

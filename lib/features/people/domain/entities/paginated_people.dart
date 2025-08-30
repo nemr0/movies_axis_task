@@ -21,4 +21,13 @@ class PaginatedPeople extends Equatable{
     totalPages,
     totalResults,
   ];
+
+  PaginatedPeople addOldPeople(List<Person> oldPeople) {
+    return PaginatedPeople(
+      page: page,
+      people: List.of(oldPeople)..addAll(people),
+      totalPages: totalPages,
+      totalResults: totalResults,
+    );
+  }
 }

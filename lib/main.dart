@@ -1,13 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:movies/core/network/network_service.dart';
-import 'package:movies/core/router/navigator_key.dart';
-import 'package:movies/core/screens/basic_screen.dart';
-
-import 'core/generated/assets.gen.dart';
+import 'package:movies/core/router/router_config.dart';
 import 'core/service_locator/service_locator.dart';
 import 'core/themes/theme.dart';
 import 'core/themes/util.dart';
-import 'features/people/presentation/screens/people_screen.dart';
 
 void main() {
   ServiceLocator.setup();
@@ -22,33 +17,13 @@ class MyApp extends StatelessWidget {
     TextTheme textTheme = createTextTheme(context, "Roboto", "Cairo");
 
     MaterialTheme theme = MaterialTheme(textTheme);
-    return MaterialApp(
+    return MaterialApp.router(
       title: 'Movies',
       theme: theme.light(),      // Light mode theme
-      darkTheme: theme.dark(),   // Dark mode theme
-      home: const MyHomePage(),
-      navigatorKey: navigatorKey,
+      darkTheme: theme.dark(), // Dark mode theme
+      routerConfig: getRouter,
     );
   }
 }
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key});
 
-  @override
-  State<MyHomePage> createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-
-  @override
-  void initState() {
-    ServiceLocator.get<NetworkService>();
-
-    super.initState();
-  }
-  @override
-  Widget build(BuildContext context) {
-   return PeopleScreen();
-  }
-}

@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:movies/core/extensions/context_extension.dart';
 import 'package:movies/core/themes/theme_extensions.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 
@@ -55,7 +56,7 @@ class _CoverSkeleton extends StatelessWidget {
   Widget build(BuildContext context) {
     return Skeletonizer(
       enabled: true,
-      // effect: context.shimmerEffect,
+      effect: context.shimmerEffect,
       child: const Bone.square(),
     );
   }

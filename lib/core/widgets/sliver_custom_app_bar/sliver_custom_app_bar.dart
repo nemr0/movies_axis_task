@@ -1,3 +1,4 @@
+import 'package:blur/blur.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
@@ -11,19 +12,23 @@ class SliverCustomAppBar extends StatelessWidget {
   final VoidCallback onUpPressed;
   @override
   Widget build(BuildContext context) {
-    final height = 76 + context.viewPadding.top;
+    final topPadding = context.viewPadding.top;
+    final height =( 76 + (topPadding==0? 16 : topPadding)).toDouble();
     return SliverLayoutBuilder(
       builder: (BuildContext context, SliverConstraints constraints) {
         final scrolled = constraints.scrollOffset > height;
 
         return SliverFloatingHeader(
-          child: Container(
-            padding: EdgeInsets.only(top: context.viewPadding.top),
-            color: context.theme.appBarTheme.backgroundColor,
+          child: SizedBox(
             height: height,
             width: context.width,
-            child: Column(
+          ).blurred(
+            blurColor: context.theme.scaffoldBackgroundColor,
+            colorOpacity: 0.8,
+            overlay: Column(
+              mainAxisAlignment: MainAxisAlignment.end,
               children: [
+                SizedBox(height: context.viewPadding.top,),
                 SizedBox(
                   height: 75,
                   child: Padding(
@@ -34,9 +39,10 @@ class SliverCustomAppBar extends StatelessWidget {
                     child: Row(
                       children: [
                         Assets.core.logo.image(),
-                       if(scrolled) ...[
-                         CupertinoButton(onPressed: onUpPressed, child: Icon(Icons.arrow_upward))
-                       ]
+                        if(scrolled) ...[
+                          Spacer(),
+                          CupertinoButton(onPressed: onUpPressed, child: Icon(Icons.arrow_upward,size: 26,))
+                        ]
                       ],
                     ),
                   ),

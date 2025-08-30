@@ -1,11 +1,12 @@
 import 'package:dartz/dartz.dart';
 import 'package:equatable/equatable.dart';
+import 'package:injectable/injectable.dart';
 import 'package:movies/core/exceptions/failure.dart';
 import 'package:movies/core/usecases/usecase_abst.dart';
 
 import '../entities/paginated_people.dart';
 import '../repositories/people_repository.dart';
-
+@lazySingleton
 class GetPopularPeopleUseCase implements UseCase<PaginatedPeople,GetPopularPeopleParams>{
 
 final PeopleRepository _peopleRepository;
