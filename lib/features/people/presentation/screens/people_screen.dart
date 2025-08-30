@@ -4,9 +4,9 @@ import 'package:movies/core/extensions/context_extension.dart';
 import 'package:movies/core/screens/basic_screen.dart';
 import 'package:movies/features/people/presentation/manager/get_popular_people_cubit/get_popular_people_cubit.dart';
 import 'package:movies/core/widgets/error_screen/error_screen.dart';
-import 'package:movies/features/people/presentation/widget/sliver_paginated_people_list.dart';
 
 import '../../../../core/widgets/sliver_custom_app_bar/sliver_custom_app_bar.dart';
+import '../widget/person_widgets/sliver_paginated_people_list.dart';
 
 class PeopleScreen extends StatefulWidget {
   const PeopleScreen({super.key});
@@ -67,10 +67,8 @@ class _PeopleScreenState extends State<PeopleScreen> {
     final paginatedPeople = state.maybeMap(orElse: () => null, success: (value) => value.paginatedPeople, paginating: (value) => value.oldPaginatedPeople, paginationFailed: (value) => value.paginatedPeople,);
     final paginating = state.maybeWhen(paginating: (_) => true, orElse: () => false,);
     final paginationFailure = state.maybeWhen(paginationFailed: (_, failure) => failure, orElse: () => null,);
-    print(paginating);
     return BlocListener<GetPopularPeopleCubit, GetPopularPeopleState>(
         listener: (context, state) {
-          print(state.mapOrNull(paginating: (_)=>true));
           state.mapOrNull(
             paginating: (_)=> _scrollToEnd(), paginationFailed: (_)=> _scrollToEnd()
           );
@@ -85,7 +83,7 @@ class _PeopleScreenState extends State<PeopleScreen> {
             failed: (failure) => SliverFillRemaining(
               child: ErrorScreen(
                 failure: failure.failure,
-                onRefresh: () {
+                onActionPressed: () {
                   context.read<GetPopularPeopleCubit>().call();
                 },
               ),
@@ -107,7 +105,7 @@ class _PeopleScreenState extends State<PeopleScreen> {
               child: Padding(
                 padding:  EdgeInsets.only(bottom: context.viewPadding.bottom + 16.0),
                 child: ErrorScreen(
-                  onRefresh: context.read<GetPopularPeopleCubit>().call,
+                  onActionPressed: context.read<GetPopularPeopleCubit>().call,
                   failure: paginationFailure,
                 ),
               ),

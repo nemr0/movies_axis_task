@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:movies/core/extensions/context_extension.dart';
 import 'package:movies/features/people/domain/entities/paginated_people.dart';
 
+import '../../../../../core/router/routes.dart';
 import 'person_card.dart';
 
 class SliverPaginatedPeopleList extends StatelessWidget {
@@ -16,27 +18,21 @@ class SliverPaginatedPeopleList extends StatelessWidget {
   Widget build(BuildContext context) {
     final people = paginatedPeople?.people;
     final peopleLength = people?.length ?? 30;
-    final isPortrait = context.isPortrait;
-    final isMobile = context.isMobile;
 
     return SliverPadding(
-      padding: EdgeInsetsGeometry.only(
-        top: 12,
-        bottom: paginatingOrPaginationFailed ? 0 : context.viewPadding.bottom,
-        right: 5,
-        left: 5,
-      ),
+      padding: context.gridPadding(addBottom:!paginatingOrPaginationFailed),
       sliver: SliverGrid(
-        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: isMobile ? isPortrait ? 2 : 4 : isPortrait ? 4 : 8,
-          mainAxisSpacing: 12,
-          crossAxisSpacing: 12,
-          childAspectRatio: 2 / 3,
-        ),
+        gridDelegate: context.gridDelegate,
         delegate: SliverChildBuilderDelegate(
-          (_, index) => PersonCard(
-            person:  people?[index],
-          ),
+          (_, index) {
+            final person = people?[index];
+            return PersonCard(
+              onPressed: person == null? null : (){
+                context.push(Routes.personPath(person.id), extra: person);
+              },
+              person: person ,
+            );
+          },
           childCount: peopleLength,
         ),
       ),

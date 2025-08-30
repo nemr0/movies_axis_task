@@ -8,12 +8,13 @@ import '../../exceptions/network_failure.dart';
 class ErrorScreen extends StatelessWidget {
   const ErrorScreen({
     super.key,
-    required this.onRefresh,
+    required this.onActionPressed,
     required this.failure,
+    this.actionTitle = 'Refresh',
   });
-
+  final String actionTitle;
   final Failure failure;
-  final VoidCallback onRefresh;
+  final VoidCallback onActionPressed;
 
   @override
   Widget build(BuildContext context) {
@@ -49,9 +50,9 @@ class ErrorScreen extends StatelessWidget {
           ),
           const SizedBox(height: 10),
           CupertinoButton.filled(
-            onPressed: onRefresh,
+            onPressed: onActionPressed,
             padding: const EdgeInsets.all(12),
-            child:  Text('Refresh',style: textTheme.bodyLarge?.copyWith(color: colorScheme.primaryContainer),),
+            child:  Text(actionTitle,style: textTheme.bodyLarge?.copyWith(color: colorScheme.primaryContainer),),
           ),
         ],
       ),

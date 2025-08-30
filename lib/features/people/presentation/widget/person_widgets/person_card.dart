@@ -7,16 +7,17 @@ import 'package:movies/core/widgets/image_from_network_widget.dart';
 import 'package:movies/features/people/domain/entities/person.dart';
 
 class PersonCard extends StatelessWidget {
-  const PersonCard({super.key,  this.person,  this.onPressed});
+  const PersonCard({super.key,  this.person,  this.onPressed,  this.withOverlay = true});
 
   final Person? person;
-  final ValueChanged<Person>? onPressed;
+  final bool withOverlay;
+  final VoidCallback? onPressed;
   @override
   Widget build(BuildContext context) {
     final textTheme = context.textTheme;
     final colorScheme = context.colorScheme;
     final isKnownForDepartmentEmpty = person?.knownForDepartment.isEmpty ?? true;
-    final body = Align(
+    final body = withOverlay? Align(
       alignment: Alignment.bottomCenter,
       child: Container(
         width: double.infinity,
@@ -52,11 +53,11 @@ class PersonCard extends StatelessWidget {
           ],
         ),
       ),
-    );
+    ) : null;
     return Hero(
       tag: person ?? UniqueKey(),
       child: CupertinoButton(
-        onPressed: onPressed == null || person == null ? null : ()=> onPressed!(person!),
+        onPressed: onPressed,
         padding: EdgeInsets.zero,
         child: AspectRatio(
           aspectRatio: 2/3,
@@ -75,7 +76,7 @@ class PersonCard extends StatelessWidget {
             child: ImageFromNetwork(
               person?.profilePath.fullImagePath ?? '',
               loading: person == null,
-              errorBuilder: ()=>body,
+              errorBuilder: withOverlay? ()=>body! : null,
               imageBuilder: (context, imageProvider) {
                 return Container(
                   decoration: BoxDecoration(

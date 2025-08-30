@@ -1,18 +1,65 @@
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:go_router/go_router.dart';
-import 'package:movies/core/router/navigator_key.dart';
-import 'package:movies/features/people/presentation/manager/get_popular_people_cubit/get_popular_people_cubit.dart';
-import 'package:movies/features/people/presentation/screens/people_screen.dart';
+part of '../../main.dart';
 
-GoRouter get getRouter => GoRouter(
+final _getRouter = GoRouter(
+  initialLocation: Routes.popularPeople,
   routes: [
     GoRoute(
-      path: '/',
+      path: Routes.popularPeople,
       builder: (context, state) => BlocProvider(
-          create: (_) => GetPopularPeopleCubit.instance..call(),
-          child: const PeopleScreen(),
+        create: (_) => GetPopularPeopleCubit.instance..call(),
+        child: const PeopleScreen(),
       ),
     ),
+    GoRoute(
+      path: Routes.person,
+      pageBuilder: (context, state) {
+        final person = state.extra as Person?;
+        final personId = int.tryParse(state.pathParameters['id'] ?? '');
+
+        final Widget widget;
+        if (person == null || personId == null) {
+          widget = ErrorScreen(
+            actionTitle: 'Go Back',
+            onActionPressed: () {
+              context.push(Routes.popularPeople);
+            },
+            failure: ParseFailure(),
+          );
+        } else {
+          widget = MultiBlocProvider(
+            providers: [
+              BlocProvider(
+                create: (_) => GetPersonPhotosCubit.instance..call(personId),
+              ),
+            ],
+            child: PersonDetailsScreen(person),
+          );
+        }
+
+        return CupertinoPage(child: widget, fullscreenDialog: true);
+      },
+      routes: [
+        GoRoute(
+          path: Routes.personPhoto,
+          builder: (context, state) {
+            final savePersonPhotoParams = state.extra as SavePersonPhotoParams?;
+            if (savePersonPhotoParams == null) {
+              return ErrorScreen(
+                onActionPressed: () => context.pop(),
+                failure: ParseFailure(),
+              );
+            }
+            return BlocProvider(
+              create: (context) => SavePersonPhotoCubit.instance,
+              child: PersonPhotoScreen(
+                savePhotoParams: savePersonPhotoParams,
+              ),
+            );
+          },
+        ),
+      ]
+    ),
+
   ],
 
   navigatorKey: navigatorKey,

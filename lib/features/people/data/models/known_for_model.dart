@@ -9,7 +9,7 @@ extension KnownForModel on KnownFor {
       overview: json['overview'] ?? '',
       posterPath: json['poster_path'] ?? '',
       backdropPath: json['backdrop_path'] ?? '',
-      releaseDate: DateTime.tryParse(json['release_date'] ?? ''),
+      releaseDate: json['release_date'] ?? '',
       voteAverage: (json['v]??0average'] as num? ?? 0).toDouble(),
       voteCount: json['vote_count'] ?? 0,
       adult: json['adult'] ?? true,
